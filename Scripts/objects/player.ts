@@ -8,8 +8,6 @@ module objects {
         private _jumpSpeed : number = 10;
         private _friction : number = -1;
 
-        private _marioState : number = config.MarioState.SMALL;
-        private _isStar : boolean = false;
         private _isDead : boolean = false;
         private _isGrounded : boolean = false;
         private _isJumping : boolean = false;
@@ -43,6 +41,13 @@ module objects {
             }
             else {
                 this._friction = 0;
+            }
+
+            if (this._velocity.x > 0) {
+                this.gotoAndPlay("moving");
+            }
+            else {
+                this.gotoAndPlay("idle");
             }
             
             // AccelerationX affects Velocity.x

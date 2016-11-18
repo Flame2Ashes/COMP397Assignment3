@@ -10,7 +10,7 @@ var canvas: HTMLElement;
 var stage: createjs.Stage;
 
 var spriteSheetLoader : createjs.SpriteSheetLoader;
-var targetAtlas : createjs.SpriteSheet;
+var snailAtlas : createjs.SpriteSheet;
 
 
 var currentScene : objects.Scene;
@@ -32,7 +32,7 @@ var assetData:objects.Asset[] = [
     {id: "playAgain", src: "../../Assets/images/playAgain.png"},
     {id: "back", src: "../../Assets/images/back.png"},
     //Spritesheet
-    {id: "targetAtlas", src: "../../Assets/images/targetAtlas.png"}
+    {id: "snailAtlas", src: "../../Assets/images/snailAtlas.png"}
 ];
 
 function preload() {
@@ -58,48 +58,34 @@ function init() {
 
     let atlasData = {
         "images": [
-            assets.getResult("targetAtlas")
+            assets.getResult("snailAtlas")
         ],
 
       "frames": [
-        [1, 1, 120, 120, 0, 0, 0], //0 - Broken Target 1
-        [123, 1, 120, 120, 0, 0, 0], //1 - Broken Target 2
-        [1, 123, 58, 135, 0, 0, 0], //2 - Broken Bottle 2
-        [1, 260, 95, 112, 0, 0, 0], //3 - Ammo 2
-        [61, 123, 120, 120, 0, 0, 0], //4 - Target
-        [98, 245, 42, 120, 0, 0, 0], //5 - Broken Bottle 1
-        [142, 245, 95, 112, 0, 0, 0], //6 - Ammo
-        [183, 123, 42, 120, 0, 0, 0] //7 - Bottle
+        [0, 0, 300, 100, 0, 0, 0], //0 - Leaf
+        [300, 0, 200, 75, 0, 0, 0], //1 - Salt
+        [500, 0, 150, 110, 0, 0, 0], //2 - Snail (idle)
+        [650, 0, 150, 110, 0, 0, 0], //3 - Snail (moving 1)
+        [800, 0, 150, 110, 0, 0, 0] //4 - Snail (moving 2)
     ],
         "animations": {
-            "targetBreak": {
-                "frames": [0, 1], "speed": 0.1, next: false
-            },
 
-            "bottleBreak": {
-                "frames": [5, 2], "speed": 0.1, next: false
-            },
-            "ammoGet": {
-                "frames": [6, 3], "speed": 0.1, next: false
+            "moving": {
+                "frames": [3, 4], "speed": 0.1, next: false
             },
             
-            "target": {"frames": [4]},
-            "bottle": {"frames": [7]},
-            "ammo": {"frames": [6]},
+            "idle": {"frames": [2]},
+            "leaf": {"frames": [0]},
+            "salt": {"frames": [1]}
             
-        },
-        
-       "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:3cddc399832ebe0a9a1fd9e5fe9a0a96:836dbe4ba01c1cef370e7cac38a25ec5:01b4a05c7f6807936f8426c41592daed$",
-        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
-]
+        }
     }
 
-    //Assign to targetAtlas
+    //Assign to snailAtlas
 
-    targetAtlas = new createjs.SpriteSheet(atlasData);
+    snailAtlas = new createjs.SpriteSheet(atlasData);
 
-    scene = config.Scene.MENU;
+    scene = config.Scene.PLAY;
     changeScene();
 }
 
@@ -119,9 +105,9 @@ function changeScene() : void {
             currentScene = new scenes.Menu();;
             console.log("Starting MENU scene");
             break;
-     case config.Scene.GAME :
+     case config.Scene.PLAY :
             stage.removeAllChildren();
-            currentScene = new scenes.Game();
+            currentScene = new scenes.Play();
             console.log("Starting GAME scene");
             break;
 

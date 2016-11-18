@@ -53,8 +53,7 @@ module scenes {
         // Fucntion for when button is pressed
         private _startButtonClick(event : createjs.MouseEvent) {
             // Change global scene variable to GAME. Call global changeScene() function
-            ammo = 11;
-            scene = config.Scene.GAME;
+            scene = config.Scene.PLAY;
             changeScene();
         }
 

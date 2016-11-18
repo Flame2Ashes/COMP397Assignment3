@@ -4,15 +4,16 @@
 module config {
     export class Scene {
         public static MENU : number = 0;
-        public static GAME : number = 1;
+        public static PLAY : number = 1;
         public static GAMEOVER : number = 2;
+        public static INSTRUCTIONS : number = 3;
     }
 
     export class Screen {
-        public static WIDTH : number = 640;
-        public static HEIGHT : number = 480;
-        public static CENTER_X : number = 320;
-        public static CENTER_Y : number = 240;
+        public static WIDTH : number = 4500;
+        public static HEIGHT : number = 700;
+        public static CENTER_X : number = 500;
+        public static CENTER_Y : number = 350;
     }
     
     export class Game {

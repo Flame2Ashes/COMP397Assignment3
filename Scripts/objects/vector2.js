@@ -12,9 +12,18 @@ var objects;
             if (y === void 0) { y = 0; }
             _super.call(this, x, y);
         }
-        // Standard distance formula between 2 points
-        Vector2.distance = function (a, b) {
-            return Math.sqrt(Math.pow((b.x - a.x), 2 + Math.pow((b.y - a.y), 2)));
+        // Add the current vector to a vector passed as an argument and return a new vector
+        Vector2.prototype.add = function (otherVec) {
+            return new objects.Vector2(this.x + otherVec.x, this.y + otherVec.y);
+        };
+        // Length of current vector
+        Vector2.prototype.magnitude = function () {
+            return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+        };
+        // Normalized vector of the current vector. Represents direction vector with length = 1
+        Vector2.prototype.normalize = function () {
+            var mag = this.magnitude();
+            return new objects.Vector2(this.x / mag, this.y / mag);
         };
         return Vector2;
     })(createjs.Point);

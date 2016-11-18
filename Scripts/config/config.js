@@ -7,18 +7,19 @@ var config;
         function Scene() {
         }
         Scene.MENU = 0;
-        Scene.GAME = 1;
+        Scene.PLAY = 1;
         Scene.GAMEOVER = 2;
+        Scene.INSTRUCTIONS = 3;
         return Scene;
     })();
     config.Scene = Scene;
     var Screen = (function () {
         function Screen() {
         }
-        Screen.WIDTH = 640;
-        Screen.HEIGHT = 480;
-        Screen.CENTER_X = 320;
-        Screen.CENTER_Y = 240;
+        Screen.WIDTH = 4500;
+        Screen.HEIGHT = 700;
+        Screen.CENTER_X = 500;
+        Screen.CENTER_Y = 350;
         return Screen;
     })();
     config.Screen = Screen;

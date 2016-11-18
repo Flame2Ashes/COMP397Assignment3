@@ -13,8 +13,6 @@ var objects;
             this._maxSpeedX = 10;
             this._jumpSpeed = 10;
             this._friction = -1;
-            this._marioState = config.MarioState.SMALL;
-            this._isStar = false;
             this._isDead = false;
             this._isGrounded = false;
             this._isJumping = false;
@@ -40,6 +38,12 @@ var objects;
             }
             else {
                 this._friction = 0;
+            }
+            if (this._velocity.x > 0) {
+                this.gotoAndPlay("moving");
+            }
+            else {
+                this.gotoAndPlay("idle");
             }
             // AccelerationX affects Velocity.x
             // Gravity affects Velocity.y

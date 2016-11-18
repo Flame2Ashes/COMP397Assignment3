@@ -7,7 +7,7 @@ var assets;
 var canvas;
 var stage;
 var spriteSheetLoader;
-var targetAtlas;
+var snailAtlas;
 var currentScene;
 var scene;
 var score = 0;
@@ -24,7 +24,7 @@ var assetData = [
     { id: "playAgain", src: "../../Assets/images/playAgain.png" },
     { id: "back", src: "../../Assets/images/back.png" },
     //Spritesheet
-    { id: "targetAtlas", src: "../../Assets/images/targetAtlas.png" }
+    { id: "snailAtlas", src: "../../Assets/images/snailAtlas.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded
@@ -44,40 +44,27 @@ function init() {
     //Create AtlasData
     var atlasData = {
         "images": [
-            assets.getResult("targetAtlas")
+            assets.getResult("snailAtlas")
         ],
         "frames": [
-            [1, 1, 120, 120, 0, 0, 0],
-            [123, 1, 120, 120, 0, 0, 0],
-            [1, 123, 58, 135, 0, 0, 0],
-            [1, 260, 95, 112, 0, 0, 0],
-            [61, 123, 120, 120, 0, 0, 0],
-            [98, 245, 42, 120, 0, 0, 0],
-            [142, 245, 95, 112, 0, 0, 0],
-            [183, 123, 42, 120, 0, 0, 0] //7 - Bottle
+            [0, 0, 300, 100, 0, 0, 0],
+            [300, 0, 200, 75, 0, 0, 0],
+            [500, 0, 150, 110, 0, 0, 0],
+            [650, 0, 150, 110, 0, 0, 0],
+            [800, 0, 150, 110, 0, 0, 0] //4 - Snail (moving 2)
         ],
         "animations": {
-            "targetBreak": {
-                "frames": [0, 1], "speed": 0.1, next: false
+            "moving": {
+                "frames": [3, 4], "speed": 0.1, next: false
             },
-            "bottleBreak": {
-                "frames": [5, 2], "speed": 0.1, next: false
-            },
-            "ammoGet": {
-                "frames": [6, 3], "speed": 0.1, next: false
-            },
-            "target": { "frames": [4] },
-            "bottle": { "frames": [7] },
-            "ammo": { "frames": [6] },
-        },
-        "texturepacker": [
-            "SmartUpdateHash: $TexturePacker:SmartUpdate:3cddc399832ebe0a9a1fd9e5fe9a0a96:836dbe4ba01c1cef370e7cac38a25ec5:01b4a05c7f6807936f8426c41592daed$",
-            "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
-        ]
+            "idle": { "frames": [2] },
+            "leaf": { "frames": [0] },
+            "salt": { "frames": [1] }
+        }
     };
-    //Assign to targetAtlas
-    targetAtlas = new createjs.SpriteSheet(atlasData);
-    scene = config.Scene.MENU;
+    //Assign to snailAtlas
+    snailAtlas = new createjs.SpriteSheet(atlasData);
+    scene = config.Scene.PLAY;
     changeScene();
 }
 function gameLoop(event) {
@@ -94,9 +81,9 @@ function changeScene() {
             ;
             console.log("Starting MENU scene");
             break;
-        case config.Scene.GAME:
+        case config.Scene.PLAY:
             stage.removeAllChildren();
-            currentScene = new scenes.Game();
+            currentScene = new scenes.Play();
             console.log("Starting GAME scene");
             break;
         case config.Scene.INSTRUCTIONS:

@@ -41,8 +41,7 @@ var scenes;
         // Fucntion for when button is pressed
         Menu.prototype._startButtonClick = function (event) {
             // Change global scene variable to GAME. Call global changeScene() function
-            ammo = 11;
-            scene = config.Scene.GAME;
+            scene = config.Scene.PLAY;
             changeScene();
         };
         Menu.prototype._instructionButtonClick = function (event) {
