@@ -9,9 +9,9 @@ var objects;
         __extends(Player, _super);
         function Player(imgString) {
             _super.call(this, imgString);
-            this._gravity = 9.81;
-            this._maxSpeedX = 10;
-            this._jumpSpeed = 10;
+            this._gravity = 0.2;
+            this._maxSpeedX = 0.1;
+            this._jumpSpeed = 0.01;
             this._friction = -1;
             this._isDead = false;
             this._isGrounded = false;
@@ -21,7 +21,7 @@ var objects;
         }
         Player.prototype.start = function () {
             this._velocity = new objects.Vector2(0, 0);
-            this.position = new objects.Vector2(30, 0);
+            this.position = new objects.Vector2(150, 0);
             this._accelerationX = 0;
         };
         Player.prototype.update = function () {
@@ -33,17 +33,24 @@ var objects;
             this.position.x += this._velocity.x;
             this.position.y += this._velocity.y;
             if (this._isGrounded) {
-                this._friction = 0.75;
+                this._friction = 0.5;
                 this._velocity.y = 0;
+                this._gravity = 0;
             }
             else {
                 this._friction = 0;
+                this._gravity = 0.5;
             }
             if (this._velocity.x > 0) {
                 this.gotoAndPlay("moving");
+                this.scaleX = 1;
             }
-            else {
+            else if (this._velocity.x == 0) {
                 this.gotoAndPlay("idle");
+            }
+            if (this._velocity.x < 0) {
+                this.gotoAndPlay("moving");
+                this.scaleX = -1;
             }
             // AccelerationX affects Velocity.x
             // Gravity affects Velocity.y
@@ -79,9 +86,14 @@ var objects;
             this._accelerationX = 0;
         };
         Player.prototype.jump = function () {
-            this.setIsGrounded(false);
-            this._velocity.y = -15;
-            this._isJumping = true;
+            if (this._isGrounded) {
+                this.setIsGrounded(false);
+                this._velocity.y = -15;
+                this._isJumping = true;
+            }
+            else {
+                this._velocity.y -= 0;
+            }
         };
         return Player;
     })(objects.GameObject);

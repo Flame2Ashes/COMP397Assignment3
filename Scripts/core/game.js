@@ -24,7 +24,9 @@ var assetData = [
     { id: "playAgain", src: "../../Assets/images/playAgain.png" },
     { id: "back", src: "../../Assets/images/back.png" },
     //Spritesheet
-    { id: "snailAtlas", src: "../../Assets/images/snailAtlas.png" }
+    { id: "snailAtlas", src: "../../Assets/images/snailAtlas.png" },
+    //Other
+    { id: "floor", src: "../../Assets/images/ground.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded

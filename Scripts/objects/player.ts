@@ -1,11 +1,11 @@
 module objects {
     export class Player extends objects.GameObject {
-        private _gravity : number = 9.81;
+        private _gravity : number = 0.2;
 
-        private _maxSpeedX : number = 10;
+        private _maxSpeedX : number = 0.1;
         private _velocity : objects.Vector2;
         private _accelerationX : number;
-        private _jumpSpeed : number = 10;
+        private _jumpSpeed : number = 0.01;
         private _friction : number = -1;
 
         private _isDead : boolean = false;
@@ -21,7 +21,7 @@ module objects {
 
         public start() : void {
             this._velocity = new objects.Vector2(0,0);
-            this.position = new objects.Vector2(30, 0);
+            this.position = new objects.Vector2(150, 0);
             this._accelerationX = 0;
         }
 
@@ -36,18 +36,26 @@ module objects {
 
 
             if(this._isGrounded) {
-                this._friction = 0.75;
+                this._friction = 0.5;
                 this._velocity.y = 0;
+                this._gravity = 0;
             }
             else {
                 this._friction = 0;
+                this._gravity = 0.5;
             }
 
             if (this._velocity.x > 0) {
                 this.gotoAndPlay("moving");
+                this.scaleX = 1;
             }
-            else {
+            else if (this._velocity.x == 0) {
                 this.gotoAndPlay("idle");
+            }
+
+            if (this._velocity.x < 0) {
+                this.gotoAndPlay("moving");
+                this.scaleX = -1;
             }
             
             // AccelerationX affects Velocity.x
@@ -94,9 +102,15 @@ module objects {
             this._accelerationX = 0;
         }
         public jump() : void {
+
+            if (this._isGrounded) {
             this.setIsGrounded(false);
             this._velocity.y = -15;
             this._isJumping = true;
+            }
+            else {
+                this._velocity.y -= 0;
+            }
         }
     }
 }

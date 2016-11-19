@@ -3,7 +3,7 @@ module scenes {
 
         private _bg : createjs.Bitmap;
 
-  //      private _ground : createjs.Bitmap;
+        private _ground : createjs.Bitmap;
         private _player : objects.Player;
 
         //Arrays for objects
@@ -22,9 +22,11 @@ module scenes {
 
         public start() : void {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
-        //    this._ground = new createjs.Bitmap(assets.getResult("floor"));
+            this._ground = new createjs.Bitmap(assets.getResult("floor"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
+            this._player.regX = 75;
+            this._ground.y = 663;
 
             
 
@@ -36,7 +38,7 @@ module scenes {
 
             this._scrollableObjContainer.addChild(this._bg);
             this._scrollableObjContainer.addChild(this._player);
-      //      this._scrollableObjContainer.addChild(this._ground);
+            this._scrollableObjContainer.addChild(this._ground);
     /*        for(let leaf of this._leaves) {
                 this._scrollableObjContainer.addChild(leaf);
             }
@@ -47,7 +49,6 @@ module scenes {
 
             */
 
-     //       this._ground.y = 535;
 
             this.addChild(this._scrollableObjContainer);
 
@@ -78,9 +79,9 @@ module scenes {
                 this._player.resetAcceleration();
             }
 
-   /*         if(!this._player.getIsGrounded())
+            if(!this._player.getIsGrounded())
                 this._checkPlayerWithFloor();
-                */
+                
 
                 //Check for collision 
 
@@ -142,14 +143,14 @@ module scenes {
                 this._scrollableObjContainer.regX = speed - 300;
         }
 
-  /*      private _checkPlayerWithFloor() : void {
+        private _checkPlayerWithFloor() : void {
             if(this._player.y+ this._player.getBounds().height > this._ground.y) {
                 console.log("HIT GROUND");
                 this._player.position.y = this._ground.y - this._player.getBounds().height - 20;
                 this._player.setIsGrounded(true);
             }
         }
-*/
+
         private checkScroll() : boolean {
             if(this._player.x >= this._scrollTrigger) {
                 return true;

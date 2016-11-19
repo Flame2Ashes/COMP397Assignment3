@@ -14,14 +14,16 @@ var scenes;
         }
         Play.prototype.start = function () {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
-            //    this._ground = new createjs.Bitmap(assets.getResult("floor"));
+            this._ground = new createjs.Bitmap(assets.getResult("floor"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
+            this._player.regX = 75;
+            this._ground.y = 663;
             //Create salt and leaf objects and place them in the scene
             //Scrollable Container. Make the thing scroll
             this._scrollableObjContainer.addChild(this._bg);
             this._scrollableObjContainer.addChild(this._player);
-            //      this._scrollableObjContainer.addChild(this._ground);
+            this._scrollableObjContainer.addChild(this._ground);
             /*        for(let leaf of this._leaves) {
                         this._scrollableObjContainer.addChild(leaf);
                     }
@@ -31,7 +33,6 @@ var scenes;
                     }
         
                     */
-            //       this._ground.y = 535;
             this.addChild(this._scrollableObjContainer);
             window.onkeydown = this._onKeyDown;
             window.onkeyup = this._onKeyUp;
@@ -52,9 +53,8 @@ var scenes;
             if (!controls.RIGHT && !controls.LEFT) {
                 this._player.resetAcceleration();
             }
-            /*         if(!this._player.getIsGrounded())
-                         this._checkPlayerWithFloor();
-                         */
+            if (!this._player.getIsGrounded())
+                this._checkPlayerWithFloor();
             //Check for collision 
             this._player.update();
             if (this.checkScroll()) {
@@ -107,14 +107,13 @@ var scenes;
             if (this._scrollableObjContainer.regX < config.Screen.WIDTH - 1005)
                 this._scrollableObjContainer.regX = speed - 300;
         };
-        /*      private _checkPlayerWithFloor() : void {
-                  if(this._player.y+ this._player.getBounds().height > this._ground.y) {
-                      console.log("HIT GROUND");
-                      this._player.position.y = this._ground.y - this._player.getBounds().height - 20;
-                      this._player.setIsGrounded(true);
-                  }
-              }
-      */
+        Play.prototype._checkPlayerWithFloor = function () {
+            if (this._player.y + this._player.getBounds().height > this._ground.y) {
+                console.log("HIT GROUND");
+                this._player.position.y = this._ground.y - this._player.getBounds().height - 20;
+                this._player.setIsGrounded(true);
+            }
+        };
         Play.prototype.checkScroll = function () {
             if (this._player.x >= this._scrollTrigger) {
                 return true;
