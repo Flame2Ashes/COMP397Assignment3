@@ -60,9 +60,9 @@ function init() {
             "moving": {
                 "frames": [3, 4], "speed": 0.1, next: true
             },
-            "idle": { "frames": [2] },
             "leaf": { "frames": [0] },
-            "salt": { "frames": [1] }
+            "salt": { "frames": [1] },
+            "idle": { "frames": [2] }
         }
     };
     //Assign to snailAtlas

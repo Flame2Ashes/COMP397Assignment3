@@ -16,6 +16,7 @@ var objects;
             this._isDead = false;
             this._isGrounded = false;
             this._isJumping = false;
+            this._isOnLeaf = false;
             this.isColliding = false;
             this.start();
         }
@@ -38,7 +39,6 @@ var objects;
                 this._gravity = 0;
             }
             else {
-                this._friction = 0;
                 this._gravity = 0.5;
             }
             if (this._velocity.x > 0) {
@@ -61,7 +61,7 @@ var objects;
             this._velocity.x *= this._friction;
             this.position.x += this._velocity.x;
             this.position.y += this._velocity.y + this._gravity;
-            console.log("Position" + this.position + " Vel: " + this._velocity + " Acc: " + this._accelerationX);
+            //     console.log("Position" + this.position + " Vel: " + this._velocity + " Acc: " + this._accelerationX);
             _super.prototype.update.call(this);
         };
         Player.prototype.getVelocity = function () {
@@ -75,6 +75,12 @@ var objects;
         };
         Player.prototype.setIsGrounded = function (b) {
             this._isGrounded = b;
+        };
+        Player.prototype.getIsOnLeaf = function () {
+            return this._isOnLeaf;
+        };
+        Player.prototype.setIsOnLeaf = function (b) {
+            this._isOnLeaf = b;
         };
         Player.prototype.moveRight = function () {
             this._accelerationX += 0.05;

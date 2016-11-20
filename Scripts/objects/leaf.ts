@@ -2,7 +2,7 @@
 module objects {
     export class Leaf extends objects.GameObject {
 
-         constructor(defaultPosition : objects.Vector2) {
+         constructor() {
             super("leaf");
           }
 

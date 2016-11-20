@@ -7,7 +7,7 @@ var objects;
 (function (objects) {
     var Leaf = (function (_super) {
         __extends(Leaf, _super);
-        function Leaf(defaultPosition) {
+        function Leaf() {
             _super.call(this, "leaf");
         }
         Leaf.prototype.setPosition = function (pos) {

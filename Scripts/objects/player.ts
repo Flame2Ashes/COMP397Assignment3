@@ -11,6 +11,7 @@ module objects {
         private _isDead : boolean = false;
         private _isGrounded : boolean = false;
         private _isJumping : boolean = false;
+        private _isOnLeaf : boolean = false;
         
         public isColliding : boolean = false;
 
@@ -41,8 +42,7 @@ module objects {
                 this._gravity = 0;
             }
             else {
-                this._friction = 0;
-                this._gravity = 0.5
+                this._gravity = 0.5;
             }
 
             if (this._velocity.x > 0) {
@@ -73,7 +73,7 @@ module objects {
             
             this.position.y += this._velocity.y + this._gravity;
 
-            console.log("Position" + this.position + " Vel: " + this._velocity + " Acc: " + this._accelerationX);
+       //     console.log("Position" + this.position + " Vel: " + this._velocity + " Acc: " + this._accelerationX);
             super.update();
         }
 
@@ -93,6 +93,14 @@ module objects {
             this._isGrounded = b;
         }
 
+        public getIsOnLeaf() : boolean {
+            return this._isOnLeaf;
+        }
+
+        public setIsOnLeaf(b : boolean) : void {
+            this._isOnLeaf = b;
+        }
+
         public moveRight() : void {
             this._accelerationX += 0.05;
         }
@@ -110,6 +118,7 @@ module objects {
             this._velocity.y = -10;
             this._isJumping = true;
             }
+            
         }
     }
 }
