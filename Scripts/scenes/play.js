@@ -10,11 +10,11 @@ var scenes;
         function Play() {
             _super.call(this);
             this._scrollTrigger = 350;
-            this.start();
         }
         Play.prototype.start = function () {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this._ground = new createjs.Bitmap(assets.getResult("floor"));
+            this._sign = new createjs.Bitmap(assets.getResult("sign"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
             this._player.regX = 75;
@@ -114,6 +114,10 @@ var scenes;
                 this._player.setIsGrounded(true);
             }
         };
+        /*     private _checkPlayerWithLeaf() : void {
+                 if (this._player.y + this._player.getBounds().height > this.)
+             }
+             */
         Play.prototype.checkScroll = function () {
             if (this._player.x >= this._scrollTrigger) {
                 return true;

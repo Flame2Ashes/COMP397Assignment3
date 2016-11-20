@@ -24,9 +24,6 @@ module scenes {
             this._gameOverLabel = new objects.Label("GAME OVER", "100px Arial", "#000000", config.Screen.CENTER_X, 75);
             this.addChild(this._gameOverLabel);
 
-            this._scoreLabel = new objects.Label("YOUR SCORE: " + score, "80px Arial", "#000000", config.Screen.CENTER_X, config.Screen.CENTER_Y);
-            this.addChild(this._scoreLabel);
-
             //Button
 
             this._playButton = new objects.Button("playAgain", config.Screen.CENTER_X - 100, 350);
@@ -38,8 +35,8 @@ module scenes {
         }
 
          private _playAgainClick(event : createjs.MouseEvent) {
-            //Reset score and send to menu
-            score = 0;
+            ///Send to menu
+           
             scene = config.Scene.MENU;
             changeScene();
         }

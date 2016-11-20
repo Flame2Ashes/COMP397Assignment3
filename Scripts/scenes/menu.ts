@@ -28,7 +28,7 @@ module scenes {
 
             //Add the background
             this._menuBG = new createjs.Bitmap(assets.getResult("Menu_BG"));
-            this._menuBG.alpha = 0.9;
+            this._menuBG.alpha = 0.7;
             this.addChild(this._menuBG);
 
             // Add button to scene. Register for click callback function
@@ -53,6 +53,8 @@ module scenes {
         // Fucntion for when button is pressed
         private _startButtonClick(event : createjs.MouseEvent) {
             // Change global scene variable to GAME. Call global changeScene() function
+            timer = 9999;
+            life = 100;
             scene = config.Scene.PLAY;
             changeScene();
         }

@@ -1,10 +1,13 @@
 module scenes {
     export class Play extends objects.Scene {
 
+
+
         private _bg : createjs.Bitmap;
 
         private _ground : createjs.Bitmap;
         private _player : objects.Player;
+        private _sign : createjs.Bitmap;
 
         //Arrays for objects
 
@@ -17,12 +20,12 @@ module scenes {
 
         constructor() {
             super();
-            this.start();
         }
 
         public start() : void {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this._ground = new createjs.Bitmap(assets.getResult("floor"));
+            this._sign = new createjs.Bitmap(assets.getResult("sign"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
             this._player.regX = 75;
@@ -77,6 +80,7 @@ module scenes {
             if(!controls.RIGHT && !controls.LEFT)
             {
                 this._player.resetAcceleration();
+                
             }
 
             if(!this._player.getIsGrounded())
@@ -150,6 +154,11 @@ module scenes {
                 this._player.setIsGrounded(true);
             }
         }
+
+   /*     private _checkPlayerWithLeaf() : void {
+            if (this._player.y + this._player.getBounds().height > this.)
+        }
+        */
 
         private checkScroll() : boolean {
             if(this._player.x >= this._scrollTrigger) {

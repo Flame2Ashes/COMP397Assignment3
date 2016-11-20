@@ -9,9 +9,19 @@ var objects;
 (function (objects) {
     var Salt = (function (_super) {
         __extends(Salt, _super);
-        function Salt() {
-            _super.apply(this, arguments);
+        function Salt(defaultPosition) {
+            _super.call(this, "salt");
         }
+        Salt.prototype.setPosition = function (pos) {
+            this.x = pos.x;
+            this.y = pos.y;
+        };
+        Salt.prototype.getPosition = function () {
+            return new objects.Vector2(this.x, this.y);
+        };
+        Salt.prototype.doDamage = function (life) {
+            life -= 0.5;
+        };
         return Salt;
     })(objects.GameObject);
     objects.Salt = Salt;

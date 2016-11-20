@@ -10,8 +10,8 @@ var spriteSheetLoader;
 var snailAtlas;
 var currentScene;
 var scene;
-var score = 0;
-var ammo = 11;
+var life = 100;
+var timer = 9999;
 // Preload Assets required
 var assetData = [
     //Backgrounds
@@ -26,7 +26,8 @@ var assetData = [
     //Spritesheet
     { id: "snailAtlas", src: "../../Assets/images/snailAtlas.png" },
     //Other
-    { id: "floor", src: "../../Assets/images/ground.png" }
+    { id: "floor", src: "../../Assets/images/ground.png" },
+    { id: "sign", src: "../../Assets/images/sign.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded
@@ -57,7 +58,7 @@ function init() {
         ],
         "animations": {
             "moving": {
-                "frames": [3, 4], "speed": 0.1, next: false
+                "frames": [3, 4], "speed": 0.1, next: true
             },
             "idle": { "frames": [2] },
             "leaf": { "frames": [0] },
@@ -66,7 +67,7 @@ function init() {
     };
     //Assign to snailAtlas
     snailAtlas = new createjs.SpriteSheet(atlasData);
-    scene = config.Scene.PLAY;
+    scene = config.Scene.MENU;
     changeScene();
 }
 function gameLoop(event) {

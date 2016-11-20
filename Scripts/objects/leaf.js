@@ -7,9 +7,16 @@ var objects;
 (function (objects) {
     var Leaf = (function (_super) {
         __extends(Leaf, _super);
-        function Leaf() {
-            _super.apply(this, arguments);
+        function Leaf(defaultPosition) {
+            _super.call(this, "leaf");
         }
+        Leaf.prototype.setPosition = function (pos) {
+            this.x = pos.x;
+            this.y = pos.y;
+        };
+        Leaf.prototype.getPosition = function () {
+            return new objects.Vector2(this.x, this.y);
+        };
         return Leaf;
     })(objects.GameObject);
     objects.Leaf = Leaf;

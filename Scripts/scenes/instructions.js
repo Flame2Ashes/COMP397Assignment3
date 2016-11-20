@@ -31,8 +31,9 @@ var scenes;
             stage.addChild(this);
         };
         Instructions.prototype._startButtonClick = function (event) {
-            ammo = 11;
-            scene = config.Scene.GAME;
+            life = 100;
+            timer = 9999;
+            scene = config.Scene.PLAY;
             changeScene();
         };
         Instructions.prototype._menuButtonClick = function (event) {

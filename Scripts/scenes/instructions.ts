@@ -38,8 +38,9 @@ module scenes {
         }
 
             private _startButtonClick(event : createjs.MouseEvent) {
-            ammo = 11;
-            scene = config.Scene.GAME;
+            life = 100;
+            timer = 9999;
+            scene = config.Scene.PLAY;
             changeScene();
         }
             private _menuButtonClick(event : createjs.MouseEvent) {

@@ -16,8 +16,8 @@ var snailAtlas : createjs.SpriteSheet;
 var currentScene : objects.Scene;
 var scene: number;
 
-var score : number = 0;
-var ammo : number = 11;
+var life : number = 100;
+var timer : number = 9999;
 
 
 // Preload Assets required
@@ -34,7 +34,8 @@ var assetData:objects.Asset[] = [
     //Spritesheet
     {id: "snailAtlas", src: "../../Assets/images/snailAtlas.png"},
     //Other
-    {id: "floor", src: "../../Assets/images/ground.png"}
+    {id: "floor", src: "../../Assets/images/ground.png"},
+    {id: "sign", src: "../../Assets/images/sign.png"}
 ];
 
 function preload() {
@@ -73,7 +74,7 @@ function init() {
         "animations": {
 
             "moving": {
-                "frames": [3, 4], "speed": 0.1, next: false
+                "frames": [3, 4], "speed": 0.1, next: true
             },
             
             "idle": {"frames": [2]},
@@ -87,7 +88,7 @@ function init() {
 
     snailAtlas = new createjs.SpriteSheet(atlasData);
 
-    scene = config.Scene.PLAY;
+    scene = config.Scene.MENU;
     changeScene();
 }
 
