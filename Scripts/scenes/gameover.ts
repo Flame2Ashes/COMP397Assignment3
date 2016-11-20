@@ -15,7 +15,7 @@ module scenes {
             console.log("Game Over scene started");
         
             //Background
-            this._gamebg = new createjs.Bitmap(assets.getResult("Game_BG"));
+            this._gamebg = new createjs.Bitmap(assets.getResult("Menu_BG"));
             this._gamebg.alpha = 0.5;
             this.addChild(this._gamebg);
 

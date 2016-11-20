@@ -147,11 +147,15 @@ var scenes;
                 var leaf = _a[_i];
                 if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y
                     && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20)
-                    && Math.floor(this._player.x) >= leaf.x - 50
-                    && Math.floor(this._player.x) <= leaf.x + 200) {
+                    && Math.floor(this._player.x) > leaf.x - 50
+                    && Math.floor(this._player.x) < leaf.x + 200) {
                     this._player.position.y = leaf.y - this._player.getBounds().height - 20;
                     console.log("Leaf");
                     this._player.setIsOnLeaf(true);
+                }
+                else {
+                    console.log("Not leaf");
+                    this._player.setIsOnLeaf(false);
                 }
             }
         };

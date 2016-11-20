@@ -8,11 +8,11 @@
 /// <reference path="../objects/scene.ts" />
 /// <reference path="../objects/gameobject.ts" />
 /// <reference path="../objects/vector2.ts" />
-/// <reference path="../objects/target.ts" />
-/// <reference path="../objects/bottle.ts" />
-/// <reference path="../objects/ammo.ts" />
+/// <reference path="../objects/ground.ts" />
+/// <reference path="../objects/leaf.ts" />
+/// <reference path="../objects/salt.ts" />
+/// <reference path="../objects/player.ts" />
 
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/game.ts" />
 /// <reference path="../scenes/instructions.ts" />
 /// <reference path="../scenes/gameover.ts" />

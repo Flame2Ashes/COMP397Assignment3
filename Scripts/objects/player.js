@@ -41,6 +41,11 @@ var objects;
             else {
                 this._gravity = 0.5;
             }
+            if (this._isOnLeaf) {
+                this._friction = 0.75;
+                this._velocity.y = 0;
+                this._gravity = 0;
+            }
             if (this._velocity.x > 0) {
                 this.gotoAndPlay("moving");
                 this.scaleX = 1;
@@ -94,6 +99,11 @@ var objects;
         Player.prototype.jump = function () {
             if (this._isGrounded) {
                 this.setIsGrounded(false);
+                this._velocity.y = -10;
+                this._isJumping = true;
+            }
+            if (this._isOnLeaf) {
+                this.setIsOnLeaf(false);
                 this._velocity.y = -10;
                 this._isJumping = true;
             }
