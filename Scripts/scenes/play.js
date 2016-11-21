@@ -14,7 +14,6 @@ var scenes;
         Play.prototype.start = function () {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this._ground = new createjs.Bitmap(assets.getResult("floor"));
-            this._sign = new createjs.Bitmap(assets.getResult("sign"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
             this._player.regX = 75;
@@ -24,31 +23,55 @@ var scenes;
             //Create salt and leaf objects and place them in the scene
             this._salt = [];
             this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
             this._leaves = [];
             this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            //Add sign to the scene
+            this._sign = new objects.Sign();
+            this._sign.setPosition(new objects.Vector2(4000, 500));
             //Scrollable Container. Make the thing scroll
             this._scrollableObjContainer.addChild(this._bg);
             this._scrollableObjContainer.addChild(this._player);
             this._scrollableObjContainer.addChild(this._ground);
-            //Add labels to stage
-            /*        for(let leaf of this._leaves) {
-                        this._scrollableObjContainer.addChild(leaf);
-                    }
-                    */
+            this._scrollableObjContainer.addChild(this._sign);
             for (var _i = 0, _a = this._salt; _i < _a.length; _i++) {
                 var salt = _a[_i];
-                salt.setPosition(new objects.Vector2(900, 600));
+                salt.setPosition(new objects.Vector2(Math.random() * 4000 + 300, 600));
                 salt.regX = salt.getBounds().width * 0.5;
                 this._scrollableObjContainer.addChild(salt);
             }
+            //Position the leaves
+            this._leaves[0].setPosition(new objects.Vector2(1200, 500));
+            this._leaves[0].scaleX = -1;
+            this._leaves[1].setPosition(new objects.Vector2(1650, 300));
+            this._leaves[2].setPosition(new objects.Vector2(2350, 500));
+            this._leaves[2].scaleX = -1;
+            this._leaves[3].setPosition(new objects.Vector2(2350, 250));
+            this._leaves[3].scaleX = -1;
+            this._leaves[4].setPosition(new objects.Vector2(2675, 400));
+            this._leaves[5].setPosition(new objects.Vector2(2675, 150));
+            this._leaves[6].setPosition(new objects.Vector2(2980, 450));
+            this._leaves[6].scaleX = -1;
+            this._leaves[7].setPosition(new objects.Vector2(3250, 350));
             for (var _b = 0, _c = this._leaves; _b < _c.length; _b++) {
                 var leaf = _c[_b];
-                leaf.setPosition(new objects.Vector2(1200, 500));
                 leaf.regX = leaf.getBounds().width * 0.5;
-                leaf.regY = leaf.getBounds().width * 0.15;
+                leaf.regY = leaf.getBounds().height * 0.5;
                 this._scrollableObjContainer.addChild(leaf);
             }
             this.addChild(this._scrollableObjContainer);
+            //Add labels last
             this.addChild(this._lifeLabel);
             window.onkeydown = this._onKeyDown;
             window.onkeyup = this._onKeyUp;
@@ -69,20 +92,32 @@ var scenes;
             if (!controls.RIGHT && !controls.LEFT) {
                 this._player.resetAcceleration();
             }
-            this._checkPlayerWithLeaf();
-            if (!this._player.getIsGrounded() || !this._player.getIsOnLeaf())
+            for (var _i = 0, _a = this._leaves; _i < _a.length; _i++) {
+                var leaf = _a[_i];
+                this._checkPlayerWithLeaf(leaf);
+                if (!this._player.getIsOnLeaf()) {
+                    this._checkPlayerWithFloor();
+                }
+            }
+            if (!this._player.getIsGrounded())
                 this._checkPlayerWithFloor();
             //Check for collision 
-            for (var _i = 0, _a = this._salt; _i < _a.length; _i++) {
-                var salt = _a[_i];
+            for (var _b = 0, _c = this._salt; _b < _c.length; _b++) {
+                var salt = _c[_b];
                 if (this.checkCollision(this._player, salt)) {
-                    life -= 0.1;
+                    life -= 0.5;
                     this._lifeLabel.text = "Life: " + Math.floor(life);
-                    console.log("Salty " + life);
                     if (life <= 0) {
                         console.log("Dead");
+                        //Change to Gameover scene
+                        scene = config.Scene.GAMEOVER;
+                        changeScene();
                     }
                 }
+            }
+            if (this.checkCollision(this._player, this._sign)) {
+                scene = config.Scene.GAMEOVERWIN;
+                changeScene();
             }
             this._player.update();
             if (this.checkScroll()) {
@@ -132,7 +167,7 @@ var scenes;
             }
         };
         Play.prototype._scrollBGForward = function (speed) {
-            if (this._scrollableObjContainer.regX < config.Screen.WIDTH - 1005)
+            if (this._scrollableObjContainer.regX < config.Screen.WIDTH - 1200)
                 this._scrollableObjContainer.regX = speed - 300;
         };
         Play.prototype._checkPlayerWithFloor = function () {
@@ -142,23 +177,25 @@ var scenes;
                 this._player.setIsGrounded(true);
             }
         };
-        Play.prototype._checkPlayerWithLeaf = function () {
-            for (var _i = 0, _a = this._leaves; _i < _a.length; _i++) {
-                var leaf = _a[_i];
-                if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y
+        Play.prototype._checkPlayerWithLeaf = function (leaf) {
+            if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y
+                && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20)
+                && Math.floor(this._player.x) > leaf.x - 100
+                && Math.floor(this._player.x) < leaf.x + 100) {
+                this._player.position.y = leaf.y - this._player.getBounds().height - 20;
+                console.log("Leaf");
+                this._player.setIsOnLeaf(true);
+            }
+            else {
+                this._player.setIsOnLeaf(false);
+            }
+        };
+        /*
+                 if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y
                     && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20)
                     && Math.floor(this._player.x) > leaf.x - 50
                     && Math.floor(this._player.x) < leaf.x + 200) {
-                    this._player.position.y = leaf.y - this._player.getBounds().height - 20;
-                    console.log("Leaf");
-                    this._player.setIsOnLeaf(true);
-                }
-                else {
-                    console.log("Not leaf");
-                    this._player.setIsOnLeaf(false);
-                }
-            }
-        };
+                */
         Play.prototype.checkScroll = function () {
             if (this._player.x >= this._scrollTrigger) {
                 return true;

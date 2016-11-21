@@ -5,7 +5,7 @@ module scenes {
 
         private _ground : createjs.Bitmap;
         private _player : objects.Player;
-        private _sign : createjs.Bitmap;
+        private _sign : objects.Sign;
 
         private _lifeLabel : objects.Label;
         private _timeLabel : objects.Label;
@@ -26,7 +26,6 @@ module scenes {
         public start() : void {
             this._bg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this._ground = new createjs.Bitmap(assets.getResult("floor"));
-            this._sign = new createjs.Bitmap(assets.getResult("sign"));
             this._scrollableObjContainer = new createjs.Container();
             this._player = new objects.Player("idle");
             this._player.regX = 75;
@@ -39,39 +38,73 @@ module scenes {
 
             this._salt = [];
             this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
+            this._salt.push(new objects.Salt());
 
             this._leaves = [];
             this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+            this._leaves.push(new objects.Leaf());
+
+            //Add sign to the scene
+            this._sign = new objects.Sign();
+            this._sign.setPosition(new objects.Vector2(4000, 500));
+
           
             //Scrollable Container. Make the thing scroll
 
             this._scrollableObjContainer.addChild(this._bg);
             this._scrollableObjContainer.addChild(this._player);
             this._scrollableObjContainer.addChild(this._ground);
+            this._scrollableObjContainer.addChild(this._sign);
 
-            //Add labels to stage
 
-    /*        for(let leaf of this._leaves) {
-                this._scrollableObjContainer.addChild(leaf);
-            }
-            */
 
             for(let salt of this._salt) {
-                salt.setPosition(new objects.Vector2(900, 600));
+                salt.setPosition(new objects.Vector2(Math.random() * 4000 + 300, 600));
                 salt.regX = salt.getBounds().width * 0.5;
                 this._scrollableObjContainer.addChild(salt);
             }
 
+            //Position the leaves
+            this._leaves[0].setPosition(new objects.Vector2(1200, 500));
+            this._leaves[0].scaleX = -1;
+
+            this._leaves[1].setPosition(new objects.Vector2(1650, 300));
+
+            this._leaves[2].setPosition(new objects.Vector2(2350, 500));
+            this._leaves[2].scaleX = -1;
+
+            this._leaves[3].setPosition(new objects.Vector2(2350, 250));
+            this._leaves[3].scaleX = -1;
+
+            this._leaves[4].setPosition(new objects.Vector2(2675, 400));
+            this._leaves[5].setPosition(new objects.Vector2(2675, 150));
+
+            this._leaves[6].setPosition(new objects.Vector2(2980, 450));
+            this._leaves[6].scaleX = -1;
+
+            this._leaves[7].setPosition(new objects.Vector2(3250, 350));
+
             for (let leaf of this._leaves) {
-                leaf.setPosition(new objects.Vector2(1200, 500));
                 leaf.regX = leaf.getBounds().width * 0.5;
-                leaf.regY = leaf.getBounds().width * 0.15;
+                leaf.regY = leaf.getBounds().height * 0.5;
                 this._scrollableObjContainer.addChild(leaf);
             }
 
 
 
             this.addChild(this._scrollableObjContainer);
+
+            //Add labels last
             this.addChild(this._lifeLabel);
 
             window.onkeydown = this._onKeyDown;
@@ -102,8 +135,14 @@ module scenes {
                 
             }
 
-            this._checkPlayerWithLeaf();
-            if(!this._player.getIsGrounded() || !this._player.getIsOnLeaf())
+             for (let leaf of this._leaves) {
+                   this._checkPlayerWithLeaf(leaf);
+                    if (!this._player.getIsOnLeaf()) {
+                         this._checkPlayerWithFloor();
+                    }
+                }
+
+            if(!this._player.getIsGrounded())
                 this._checkPlayerWithFloor();
                 
 
@@ -111,18 +150,24 @@ module scenes {
 
                 for(let salt of this._salt) {
                if (this.checkCollision(this._player, salt)) {
-                    life -= 0.1;
+                    life -= 0.5;
                     this._lifeLabel.text = "Life: " + Math.floor(life);
-                    console.log("Salty " + life);
                     if (life <= 0) {
                         console.log("Dead");
                         //Change to Gameover scene
-                      //  scene = config.Scene.GAMEOVER;
-                      //  changeScene();
+                        scene = config.Scene.GAMEOVER;
+                        changeScene();
                     }
                 }
             }
 
+               
+
+           
+            if (this.checkCollision(this._player, this._sign)) {
+                scene = config.Scene.GAMEOVERWIN;
+                changeScene();
+            }
 
             this._player.update();
 
@@ -178,7 +223,7 @@ module scenes {
         }
 
         private _scrollBGForward(speed : number) : void{
-            if(this._scrollableObjContainer.regX < config.Screen.WIDTH - 1005)
+            if(this._scrollableObjContainer.regX < config.Screen.WIDTH - 1200)
                 this._scrollableObjContainer.regX = speed - 300;
         }
 
@@ -190,25 +235,28 @@ module scenes {
             }
         }
 
-        private _checkPlayerWithLeaf() : void {
-            for (let leaf of this._leaves) {
+      
+        private _checkPlayerWithLeaf(leaf : objects.Leaf) : void {
 
             if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y 
             && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20) 
-            && Math.floor(this._player.x) > leaf.x - 50 
-            && Math.floor(this._player.x) < leaf.x + 200) {
+            && Math.floor(this._player.x) > leaf.x - 100 
+            && Math.floor(this._player.x) < leaf.x + 100) {
                 this._player.position.y = leaf.y - this._player.getBounds().height - 20;
                 console.log("Leaf");
                 this._player.setIsOnLeaf(true);
             }
-            else {
-                console.log("Not leaf");
-                this._player.setIsOnLeaf(false);
+            else  {
+                this._player.setIsOnLeaf(false); 
             }
-            
             }
-        }
         
+/*
+         if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y 
+            && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20) 
+            && Math.floor(this._player.x) > leaf.x - 50 
+            && Math.floor(this._player.x) < leaf.x + 200) {
+        */
 
         private checkScroll() : boolean {
             if(this._player.x >= this._scrollTrigger) {

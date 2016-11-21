@@ -5,7 +5,7 @@
 
 //Source file: menu.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 20th 2016
+//Last modified: November 20th 2016
 
 module scenes {
     export class Menu extends objects.Scene {
@@ -53,7 +53,6 @@ module scenes {
         // Fucntion for when button is pressed
         private _startButtonClick(event : createjs.MouseEvent) {
             // Change global scene variable to GAME. Call global changeScene() function
-            timer = 9999;
             life = 100;
             scene = config.Scene.PLAY;
             changeScene();

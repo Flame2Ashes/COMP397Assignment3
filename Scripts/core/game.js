@@ -1,7 +1,7 @@
 /// <reference path = "_reference.ts" />
 //Filename: game.ts CORE
 //Author: Angelina Gutierrez
-//Date modified: October 20th, 2016
+//Date modified: November 20th, 2016
 // Global Variables
 var assets;
 var canvas;
@@ -11,10 +11,9 @@ var snailAtlas;
 var currentScene;
 var scene;
 var life = 100;
-var timer = 9999;
 // Preload Assets required
 var assetData = [
-    //Backgrounds
+    //Backgro1unds
     { id: "Game_BG", src: "../../Assets/images/gamebg.png" },
     { id: "Menu_BG", src: "../../Assets/images/menubg.png" },
     { id: "Instructions_BG", src: "../../Assets/images/instructionsbg.png" },
@@ -26,8 +25,7 @@ var assetData = [
     //Spritesheet
     { id: "snailAtlas", src: "../../Assets/images/snailAtlas.png" },
     //Other
-    { id: "floor", src: "../../Assets/images/ground.png" },
-    { id: "sign", src: "../../Assets/images/sign.png" }
+    { id: "floor", src: "../../Assets/images/ground.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded
@@ -50,11 +48,12 @@ function init() {
             assets.getResult("snailAtlas")
         ],
         "frames": [
-            [0, 0, 300, 100, 0, 0, 0],
-            [300, 0, 200, 75, 0, 0, 0],
-            [500, 0, 150, 110, 0, 0, 0],
-            [650, 0, 150, 110, 0, 0, 0],
-            [800, 0, 150, 110, 0, 0, 0] //4 - Snail (moving 2)
+            [0, 285, 300, 55, 0, 0, 0],
+            [150, 150, 200, 75, 0, 0, 0],
+            [250, 0, 150, 110, 0, 0, 0],
+            [100, 0, 150, 110, 0, 0, 0],
+            [0, 150, 150, 110, 0, 0, 0],
+            [0, 0, 100, 150, 0, 0, 0] //5 - Sign
         ],
         "animations": {
             "moving": {
@@ -62,7 +61,8 @@ function init() {
             },
             "leaf": { "frames": [0] },
             "salt": { "frames": [1] },
-            "idle": { "frames": [2] }
+            "idle": { "frames": [2] },
+            "sign": { "frames": [5] }
         }
     };
     //Assign to snailAtlas
@@ -99,6 +99,10 @@ function changeScene() {
             currentScene = new scenes.Gameover();
             console.log("Starting GAMEOVER scene");
             break;
+        case config.Scene.GAMEOVERWIN:
+            stage.removeAllChildren();
+            currentScene = new scenes.Gameoverwin();
+            console.log("Starting GAMEOVERWIN scene");
     }
 }
 //# sourceMappingURL=game.js.map

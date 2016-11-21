@@ -1,7 +1,7 @@
-//Losing sign when player runs out of life
+//Winning screen when player touches the sign
 
 module scenes {
-    export class Gameover extends objects.Scene {
+    export class Gameoverwin extends objects.Scene {
         //PRIVATE VARIABLES
 
         private _gamebg : createjs.Bitmap;
@@ -23,7 +23,7 @@ module scenes {
 
             //Labels
 
-            this._gameOverLabel = new objects.Label("GAME OVER", "100px Arial", "#000000", config.Screen.CENTER_X, 75);
+            this._gameOverLabel = new objects.Label("YOU WIN!", "100px Arial", "#000000", config.Screen.CENTER_X, 75);
             this.addChild(this._gameOverLabel);
 
             //Button

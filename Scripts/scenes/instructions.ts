@@ -1,7 +1,7 @@
 //Instructions scene
 //Source file: instructions.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 20th 2016
+//Last modified: November 20th 2016
 
 module scenes {
     export class Instructions extends objects.Scene {
@@ -39,7 +39,6 @@ module scenes {
 
             private _startButtonClick(event : createjs.MouseEvent) {
             life = 100;
-            timer = 9999;
             scene = config.Scene.PLAY;
             changeScene();
         }

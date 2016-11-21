@@ -46,6 +46,7 @@ module objects {
             }
 
             if (this._isOnLeaf) {
+                
                 this._friction = 0.75;
                 this._velocity.y = 0;
                 this._gravity = 0;

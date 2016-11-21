@@ -1,7 +1,7 @@
 //Instructions scene
 //Source file: instructions.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 20th 2016
+//Last modified: November 20th 2016
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -32,7 +32,6 @@ var scenes;
         };
         Instructions.prototype._startButtonClick = function (event) {
             life = 100;
-            timer = 9999;
             scene = config.Scene.PLAY;
             changeScene();
         };

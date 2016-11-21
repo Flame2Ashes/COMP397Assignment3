@@ -2,7 +2,7 @@
 
 {
 	"filename": "leaf.png",
-	"frame": {"x":0,"y":0,"w":300,"h":100},
+	"frame": {"x":0,"y":260,"w":300,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":300,"h":100},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "salt.png",
-	"frame": {"x":300,"y":0,"w":200,"h":75},
+	"frame": {"x":150,"y":150,"w":200,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":75},
@@ -19,8 +19,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "sign.png",
+	"frame": {"x":0,"y":0,"w":100,"h":150},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":150},
+	"sourceSize": {"w":100,"h":150},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "snail_idle.png",
-	"frame": {"x":500,"y":0,"w":150,"h":110},
+	"frame": {"x":250,"y":0,"w":150,"h":110},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":110},
@@ -29,7 +38,7 @@
 },
 {
 	"filename": "snail_moving1.png",
-	"frame": {"x":650,"y":0,"w":150,"h":110},
+	"frame": {"x":100,"y":0,"w":150,"h":110},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":110},
@@ -38,7 +47,7 @@
 },
 {
 	"filename": "snail_moving2.png",
-	"frame": {"x":800,"y":0,"w":150,"h":110},
+	"frame": {"x":0,"y":150,"w":150,"h":110},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":110},
@@ -50,8 +59,8 @@
 	"version": "1.0",
 	"image": "snailAtlas.png",
 	"format": "RGBA8888",
-	"size": {"w":950,"h":110},
+	"size": {"w":400,"h":360},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1554f0ea98b01fdd3b616d75a6adb102:75518f7e8c7f504915066f4433f2648f:f0d3a7b622f3f38d7cea28235c3b46c0$"
+	"smartupdate": "$TexturePacker:SmartUpdate:9e90c1979918710ee74054626377db10:fed3858e5f6bad41af6d70bc33c76c51:f0d3a7b622f3f38d7cea28235c3b46c0$"
 }
 }

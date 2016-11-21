@@ -12,6 +12,7 @@
 /// <reference path="../objects/leaf.ts" />
 /// <reference path="../objects/salt.ts" />
 /// <reference path="../objects/player.ts" />
+/// <reference path="../objects/sign.ts" />
 
 /// <reference path="../scenes/menu.ts" />
 /// <reference path="../scenes/instructions.ts" />
