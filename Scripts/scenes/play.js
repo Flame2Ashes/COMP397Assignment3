@@ -92,18 +92,12 @@ var scenes;
             if (!controls.RIGHT && !controls.LEFT) {
                 this._player.resetAcceleration();
             }
-            for (var _i = 0, _a = this._leaves; _i < _a.length; _i++) {
-                var leaf = _a[_i];
-                this._checkPlayerWithLeaf(leaf);
-                if (!this._player.getIsOnLeaf()) {
-                    this._checkPlayerWithFloor();
-                }
-            }
+            this._checkPlayerWithLeaf();
             if (!this._player.getIsGrounded())
                 this._checkPlayerWithFloor();
             //Check for collision 
-            for (var _b = 0, _c = this._salt; _b < _c.length; _b++) {
-                var salt = _c[_b];
+            for (var _i = 0, _a = this._salt; _i < _a.length; _i++) {
+                var salt = _a[_i];
                 if (this.checkCollision(this._player, salt)) {
                     life -= 0.5;
                     this._lifeLabel.text = "Life: " + Math.floor(life);
@@ -177,17 +171,17 @@ var scenes;
                 this._player.setIsGrounded(true);
             }
         };
-        Play.prototype._checkPlayerWithLeaf = function (leaf) {
-            if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y
-                && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20)
-                && Math.floor(this._player.x) > leaf.x - 100
-                && Math.floor(this._player.x) < leaf.x + 100) {
-                this._player.position.y = leaf.y - this._player.getBounds().height - 20;
-                console.log("Leaf");
-                this._player.setIsOnLeaf(true);
-            }
-            else {
-                this._player.setIsOnLeaf(false);
+        Play.prototype._checkPlayerWithLeaf = function () {
+            for (var _i = 0, _a = this._leaves; _i < _a.length; _i++) {
+                var leaf = _a[_i];
+                if ((Math.floor(this._player.y)) + this._player.getBounds().height <= leaf.y
+                    && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20
+                    && Math.floor(this._player.x) > leaf.x - 100
+                    && Math.floor(this._player.x) < leaf.x + 100) {
+                    this._player.position.y = leaf.y - this._player.getBounds().height - 20;
+                    console.log("Leaf");
+                    this._player.setIsOnLeaf(true);
+                }
             }
         };
         /*

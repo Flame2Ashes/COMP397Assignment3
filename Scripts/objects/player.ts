@@ -45,12 +45,13 @@ module objects {
                 this._gravity = 0.5;
             }
 
-            if (this._isOnLeaf) {
+             if (this._isOnLeaf) {
                 
                 this._friction = 0.75;
                 this._velocity.y = 0;
                 this._gravity = 0;
             }
+            
 
             if (this._velocity.x > 0) {
                 this.gotoAndPlay("moving");

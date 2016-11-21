@@ -135,12 +135,7 @@ module scenes {
                 
             }
 
-             for (let leaf of this._leaves) {
-                   this._checkPlayerWithLeaf(leaf);
-                    if (!this._player.getIsOnLeaf()) {
-                         this._checkPlayerWithFloor();
-                    }
-                }
+                   this._checkPlayerWithLeaf();
 
             if(!this._player.getIsGrounded())
                 this._checkPlayerWithFloor();
@@ -236,18 +231,16 @@ module scenes {
         }
 
       
-        private _checkPlayerWithLeaf(leaf : objects.Leaf) : void {
-
-            if ((Math.floor(this._player.y) + this._player.getBounds().height <= leaf.y 
-            && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20) 
+        private _checkPlayerWithLeaf() : void {
+            for (let leaf of this._leaves) {
+            if ((Math.floor(this._player.y)) + this._player.getBounds().height <= leaf.y 
+            && Math.floor(this._player.y) + this._player.getBounds().height >= leaf.y - 20 
             && Math.floor(this._player.x) > leaf.x - 100 
             && Math.floor(this._player.x) < leaf.x + 100) {
                 this._player.position.y = leaf.y - this._player.getBounds().height - 20;
                 console.log("Leaf");
                 this._player.setIsOnLeaf(true);
             }
-            else  {
-                this._player.setIsOnLeaf(false); 
             }
             }
         
